@@ -3,9 +3,9 @@
 
 using namespace std;
 
-IHM::IHM(TwoWire* wire) {
+IHM::IHM(TwoWire* wire) { // initialisation du SSD1306
     screen = new Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, wire, OLED_RESET);
-    if (!screen->begin(SSD1306_SWITCHCAPVCC, 0x3c)) {
+    if (!screen->begin(SSD1306_SWITCHCAPVCC, 0x3c)) { // if fail
         Serial.println(F("SSD1306 allocation failed"));
         for (;;); // Don't proceed, loop forever
     }
@@ -33,6 +33,7 @@ void IHM::getData(float tension, float courant) {
     pCourant = courant;
     pWatt = (courant * tension);
 
+    // Volt
     if (tension < 1.0) {       //mV
         if (tension < 0.001) {  //uV
             multTension = 2;
@@ -44,6 +45,7 @@ void IHM::getData(float tension, float courant) {
         }
     }
 
+    // Ampère
     if (courant < 1.0) {       //mA
         if (courant < 0.001) {  //uV
             multCourant = 2;
@@ -55,6 +57,7 @@ void IHM::getData(float tension, float courant) {
         }
     }
 
+    // Watt
     if (courant * tension < 1.0) {       //mV
         if (courant * tension < 0.001) {  //uV
             multWatt = 2;
@@ -82,11 +85,11 @@ void IHM::writeText(int size, int x, int y, string text) {
 }
 void IHM::writeText(int size, int x, int y, char* text) {
 
-    screen->setTextSize(size);      // Normal 1:1 pixel scale
+    screen->setTextSize(size);  // Upscale factor
     screen->setTextColor(SSD1306_WHITE); // Draw white text
-    screen->setCursor(x, y);     // Start at top-left corner
-    screen->cp437(true);         // Use full 256 char 'Code Page 437' font
-    screen->printf(text);
+    screen->setCursor(x, y);    // 0,0 at top-left corner
+    screen->cp437(true);        // Use full 256 char 'Code Page 437' font
+    screen->printf(text);       // Convert text to pixel, then send to SSD1306
 }
 
 void IHM::drawBitmap(char x, char y, char w, char h, unsigned char* bitmap) {
