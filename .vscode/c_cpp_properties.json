@@ -10,6 +10,7 @@
             "includePath": [
                 "c:/Users/Easy Cash/Documents/Ecole/_Angers/SAE - Power Profiler/Github/Power_Profiler/include",
                 "c:/Users/Easy Cash/Documents/Ecole/_Angers/SAE - Power Profiler/Github/Power_Profiler/src",
+                "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                 "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                 "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                 "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
@@ -232,7 +233,6 @@
                 "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                 "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
-                "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                 ""
             ],
             "browse": {
@@ -240,6 +240,7 @@
                 "path": [
                     "c:/Users/Easy Cash/Documents/Ecole/_Angers/SAE - Power Profiler/Github/Power_Profiler/include",
                     "c:/Users/Easy Cash/Documents/Ecole/_Angers/SAE - Power Profiler/Github/Power_Profiler/src",
+                    "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                     "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                     "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                     "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
@@ -462,7 +463,6 @@
                     "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                     "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
-                    "C:/Users/Easy Cash/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                     ""
                 ]
             },

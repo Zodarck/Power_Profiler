@@ -13,28 +13,28 @@ void LMP8358::setGain(int G){
     gain = G;
     
     if(gain == 10){
-        SPI.write(0b0000001100000 000);
+        SPI.write16(0b0000001100000000);
     }
     if(gain == 20){
-        SPI.write(0b0000001100000 100);
+        SPI.write16(0b0000001100000100);
     }
     if(gain == 50){
-        SPI.write(0b0000001100000 010);
+        SPI.write16(0b0000001100000010);
     }
     if(gain == 100){
-        SPI.write(0b0000001100000 110);
+        SPI.write16(0b0000001100000110);
     }
     if(gain == 200){
-        SPI.write(0b0000001100000 001);
+        SPI.write16(0b0000001100000001);
     }
     if(gain == 500){
-        SPI.write(0b0000001100000 101);
+        SPI.write16(0b0000001100000101);
     }
     if(gain == 1000){
-        SPI.write(0b0000001100000 011);
+        SPI.write16(0b0000001100000011);
     }
 }
 
 void shutdown(){
-    SPI.write(0b0000001100000000);
+    SPI.write16(0b0000001100000000);
 }
