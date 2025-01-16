@@ -12,7 +12,7 @@ private:
 public:
     ADS7254(char CS, SPIClass *bus_SPI);
 
-    float ReadValue(uint8_t channel);
+    uint16_t ReadValue(uint8_t channel);
 };
 
 #endif

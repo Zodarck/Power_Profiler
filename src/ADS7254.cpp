@@ -2,6 +2,11 @@
 #include <Arduino.h>
 #include <SPI.h>
 
+#include <stdio.h>
+#include <stdint.h>
+
+uint16_t binaryToDecimal(uint16_t *binary);
+
 ADS7254::ADS7254(char CS, SPIClass *bus_SPI)
 {
 
@@ -10,29 +15,62 @@ ADS7254::ADS7254(char CS, SPIClass *bus_SPI)
 
     pinMode(ChipSelect, OUTPUT);
 
-    spi_adc->write32((uint32_t)0b1000110001000000);
+    digitalWrite(ChipSelect, LOW);
+    spi_adc->beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
+    delay(10);
+
+    spi_adc->transfer16(0b1000110001000000);
+
+    spi_adc->endTransaction();
+    digitalWrite(ChipSelect, HIGH);
 }
 
-float ADS7254::ReadValue(uint8_t channel)
+uint16_t ADS7254::ReadValue(uint8_t channel)
 {
-    uint16_t raw_data[2];
-    uint32_t buffer;
+    uint16_t raw_data = 0;
+    uint32_t buffer = 0;
 
     digitalWrite(ChipSelect, LOW);
     spi_adc->beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
-    
-    buffer = spi_adc->transfer32((uint32_t)0b0100110001000000); 
+    delay(10);
+
+    //buffer = spi_adc->transfer32(0);
+
     spi_adc->endTransaction();
     digitalWrite(ChipSelect, HIGH);
 
-    if (channel == 1)
+    // Serial.printf("RAW: %u\n",raw_data);
+
+    switch (channel)
     {
-        raw_data[0] = buffer & 0b11111111111111110000000000000000;
-        return raw_data[0] << 16;
+    case 1:
+        raw_data = buffer >> 1;
+        break;
+    case 2:
+        raw_data = buffer >> 17;
+        break;
     }
-    if (channel == 2)
+
+    // raw_data = binaryToDecimal(&raw_data);
+    //  raw_data = raw_data & 0xFFF;
+    return raw_data & 0xFFF;
+}
+
+uint16_t binaryToDecimal(uint16_t *binary)
+{
+    int16_t decimal = 0;
+    int isNegative = (binary[0] == '1'); // Vérifie si c'est un nombre négatif (complément à 2)
+
+    for (int i = 0; i < 16; i++)
     {
-        raw_data[1] = (buffer & 0x0000FFFF) << 16;
-        return raw_data[1] << 1;
+        decimal = (decimal << 1) | (binary[i] - '0'); // Décalage à gauche et ajout du bit courant
     }
+
+    // Si le nombre est négatif, on effectue la conversion du complément à 2
+    if (isNegative)
+    {
+        decimal = decimal - (1 << 16);
+    }
+
+    return decimal;
 }
